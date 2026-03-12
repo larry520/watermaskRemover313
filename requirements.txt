@@ -1,0 +1,14 @@
+# 核心依赖
+iopaint==1.6.0
+easyocr==1.7.2
+
+
+# 异步任务 (可选)
+celery==5.6.2
+redis==7.0.1
+
+# 视频处理
+moviepy==2.2.1
+ffmpeg-python==0.2.0
+
+# GPU加速  torch-directml

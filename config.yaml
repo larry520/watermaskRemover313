@@ -1,0 +1,126 @@
+# 水印去除系统配置文件
+
+# OCR 配置
+ocr:
+  # 支持的语言列表
+  languages: 
+    - 'ch_sim'  # 简体中文
+    - 'en'      # 英文
+  # 是否使用 GPU 加速
+  gpu: false
+  # 最小置信度阈值 (0-1)
+  min_confidence: 0
+  # 文字检测阈值
+  text_threshold: 0.7
+  # 链接阈值
+  link_threshold: 0.4
+  # AI生成矩形框
+  rectangle_x_buffer: 30
+  rectangle_y_buffer: 20
+  # 即梦图标
+  jimeng_x_buffer: 50
+  jimeng_y_buffer: 20
+#  # 水印关键词（用于识别水印文字）
+#  watermark_keywords:
+#    - '©'
+#    - 'copyright'
+#    - '版权'
+#    - '水印'
+#    - 'watermark'
+#    - '@'
+
+# Mask 生成配置
+mask:
+  # 边缘扩展像素数
+  expand_pixels: 5
+  # 是否启用形态学处理
+  enable_morphology: true
+  # 膨胀迭代次数
+  dilate_iterations: 1
+  # 膨胀核大小
+  dilate_kernel_size: 5
+  # 是否启用模糊
+  enable_blur: true
+  # 高斯模糊核大小 (必须是奇数)
+  blur_kernel_size: 5
+  # 模糊标准差
+  blur_sigma: 0
+
+# 图像修复配置
+inpaint:
+  # 修复模型选择: lama, mat, ldm, fcf, manga, cv2
+  model: "lama"
+  # 设备: cuda, cpu, mps
+  device: "cpu"
+  # HD 策略: Original, Resize, Crop
+  hd_strategy: "Original"
+#  # HD 策略调整大小限制
+#  hd_strategy_resize_limit: 2048
+#  # 裁剪边距
+#  hd_strategy_crop_margin: 128
+#  # 裁剪触发大小
+#  hd_strategy_crop_trigger_size: 2048
+  
+# 水印检测策略
+detection:
+  # 位置过滤：检测特定区域的水印
+  position_filter:
+    enabled: true
+    # 检测区域：corners(四角), edges(边缘), center(中心), customize(自定义），all(全部)  ['corners', 'edges']
+    areas: ['corners','customize']
+    # 角落区域大小（占图片宽高的比例）
+    corner_ratio: 0.3
+    # 边缘区域大小（占图片宽高的比例）
+    edge_ratio: 0.2
+    # 自定义区域大小（占图片宽高的比例）
+    customize_ratio: 0.2
+    # 自定义区域y坐标（归一化占图片宽高的比例）
+    customize_y: 0.78
+  
+  # 文字特征过滤
+  text_filter:
+    enabled: true
+    # 最小文字长度
+    min_text_length: 1
+    # 最大文字长度（过长可能不是水印）
+    max_text_length: 50
+    # 透明度范围（如果能检测到）
+    opacity_range: [0.3, 0.9]
+
+# 输出配置
+output:
+  # 输出格式: jpg, png, webp
+  format: "png"
+  # JPEG 质量 (1-100)
+  jpeg_quality: 95
+  # PNG 压缩级别 (0-9)
+  png_compression: 6
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+  
+# 性能配置
+performance:
+  # 最大图片尺寸（超过会自动缩放）
+  max_image_size: 4096
+  # 批处理大小
+  batch_size: 4
+  # 线程数
+  num_threads: 4
+
+# 视频处理配置
+video:
+  # 默认跳帧数（1=不跳帧，2=处理一半的帧）
+  default_skip_frames: 1
+  # 默认输出质量
+  default_quality: "high"  # high, medium, low
+  # 是否保留音频
+  keep_audio: true
+  # 自适应检测间隔（帧数）
+  adaptive_detection_interval: 30
+  # 最大视频时长（秒，0表示无限制）
+  max_duration: 0
+  # 临时文件目录
+  temp_dir: "./temp_video"
