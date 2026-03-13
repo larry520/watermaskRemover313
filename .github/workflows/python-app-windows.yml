@@ -34,7 +34,14 @@ jobs:
           # --windowed: 如果是 GUI 程序请保留，命令行程序请删除
           # main.py 需替换为你仓库中的实际启动文件名
           pyinstaller --onedir --windowed --name "WatermaskRemover" start_web.py
-
+          pyinstaller --onedir --windowed --name "WatermaskRemover" `
+            --add-data "config.yaml;." `
+            --add-data "icon.icns;." `
+            --add-data "web;web" `
+            --add-data "src;src" `
+            --add-data "utils;utils" `
+            start_web.py
+            
       - name: Zip the Output Folder
         # 文件夹模式直接上传很不方便，先压缩成一个 .zip 文件
         run: |
