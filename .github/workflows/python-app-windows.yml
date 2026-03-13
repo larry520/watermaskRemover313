@@ -33,8 +33,8 @@ jobs:
           # --onedir: 打包成一个包含 .exe 和所有依赖库的文件夹
           # --windowed: 如果是 GUI 程序请保留，命令行程序请删除
           # main.py 需替换为你仓库中的实际启动文件名
-          pyinstaller --onedir --windowed --name "WatermaskRemover" start_web.py
-          pyinstaller --onedir --windowed --name "WatermaskRemover" `
+          # pyinstaller --onedir --windowed --name "WatermaskRemover" start_web.py
+          pyinstaller -y --onedir --windowed --name "WatermaskRemover" `
             --add-data "config.yaml;." `
             --add-data "icon.icns;." `
             --add-data "web;web" `
