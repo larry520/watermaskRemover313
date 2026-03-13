@@ -26,7 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
           # 如果有 requirements.txt，取消下行注释
-          # pip install -r requirements.txt
+          pip install -r requirements.txt
 
       - name: Build with PyInstaller (Onedir)
         run: |
